@@ -1,4 +1,11 @@
+package rocks.zipcode;
+
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
@@ -88,4 +95,17 @@ public class ROT13Test {
         assertTrue(actual.equals(Q1));
     }
 
+    @Test
+    public void fileTest() throws IOException {
+        ROT13 rot13 = new ROT13();
+        File f1 = new File("/Users/hlin/Documents/Projects/Labs.Month.Two/SimpleCrypt/Crypto/src/resource/sonnet18.txt");
+        File f2 = new File("/Users/hlin/Documents/Projects/Labs.Month.Two/SimpleCrypt/Crypto/src/resource/sonnet18.enc");
+        rot13.encryptTextFile(f1);
+        rot13.encryptTextFile(f2);
+        String expected = new Scanner(f1)
+                .useDelimiter("\\Z").next();
+        String actual = new Scanner(f2)
+                .useDelimiter("\\Z").next();
+        Assert.assertEquals(expected, actual);
+    }
 }
